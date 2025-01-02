@@ -15,59 +15,59 @@ datasource db {
 }
 
 model User {
-  id            String   @id @default(uuid())
-  username      String   @unique
-  password      String
-  name          String
-  email         String
-  phoneNumber   String
-  governmentId  String
-  bookings      Booking[]
-  reviews       Review[]
+  id             String   @id @default(uuid())
+  username       String   @unique
+  password       String
+  name           String
+  email          String
+  phoneNumber    String
+  profilePicture String
+  bookings       Booking[]
+  reviews        Review[]
 }
 
 model Host {
-  id            String   @id @default(uuid())
-  username      String   @unique
-  password      String
-  name          String
-  email         String
-  phoneNumber   String
-  governmentId  String
-  aboutMe       String
-  listings      Property[]
+  id             String   @id @default(uuid())
+  username       String   @unique
+  password       String
+  name           String
+  email          String
+  phoneNumber    String
+  profilePicture String
+  aboutMe        String
+  listings       Property[]
 }
 
 model Property {
   id            String    @id @default(uuid())
   hostId        String
-  name          String
+  title         String
   description   String
   location      String
   pricePerNight Float
   bedroomCount  Int
-  bathroomCount Int
-  maxGuests     Int
+  bathRoomCount Int
+  maxGuestCount Int
   rating        Int
   amenities     Amenity[] 
   bookings      Booking[]
   reviews       Review[]
 
-  Host          Host      @relation(fields: [hostId], references: [id])
+  host          Host      @relation(fields: [hostId], references: [id])
 }
 
 model Booking {
-  id            String   @id @default(uuid())
-  userId        String
-  propertyId    String
-  checkInDate   DateTime
-  checkOutDate  DateTime
+  id             String   @id @default(uuid())
+  userId         String
+  propertyId     String
+  checkinDate    DateTime
+  checkoutDate   DateTime
   numberOfGuests Int
-  totalPrice    Float
-  bookingNotes  String?
+  totalPrice     Float
+  bookingStatus  String?
 
-  User          User     @relation(fields: [userId], references: [id])
-  Property      Property @relation(fields: [propertyId], references: [id])
+  user           User     @relation(fields: [userId], references: [id])
+  property       Property @relation(fields: [propertyId], references: [id])
 }
 
 model Review {
@@ -75,10 +75,10 @@ model Review {
   userId        String
   propertyId    String
   rating        Int
-  comment       String
+  comment       String?
 
-  User          User     @relation(fields: [userId], references: [id])
-  Property      Property @relation(fields: [propertyId], references: [id])
+  user          User     @relation(fields: [userId], references: [id])
+  property      Property @relation(fields: [propertyId], references: [id])
 }
 
 model Amenity {

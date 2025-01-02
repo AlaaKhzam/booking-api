@@ -6,7 +6,7 @@ CREATE TABLE "User" (
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "phoneNumber" TEXT NOT NULL,
-    "governmentId" TEXT NOT NULL
+    "profilePicture" TEXT NOT NULL
 );
 
 -- CreateTable
@@ -17,7 +17,7 @@ CREATE TABLE "Host" (
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "phoneNumber" TEXT NOT NULL,
-    "governmentId" TEXT NOT NULL,
+    "profilePicture" TEXT NOT NULL,
     "aboutMe" TEXT NOT NULL
 );
 
@@ -25,13 +25,13 @@ CREATE TABLE "Host" (
 CREATE TABLE "Property" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "hostId" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "location" TEXT NOT NULL,
     "pricePerNight" REAL NOT NULL,
     "bedroomCount" INTEGER NOT NULL,
-    "bathroomCount" INTEGER NOT NULL,
-    "maxGuests" INTEGER NOT NULL,
+    "bathRoomCount" INTEGER NOT NULL,
+    "maxGuestCount" INTEGER NOT NULL,
     "rating" INTEGER NOT NULL
 );
 
@@ -40,11 +40,11 @@ CREATE TABLE "Booking" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "userId" TEXT NOT NULL,
     "propertyId" TEXT NOT NULL,
-    "checkInDate" DATETIME NOT NULL,
-    "checkOutDate" DATETIME NOT NULL,
+    "checkinDate" DATETIME NOT NULL,
+    "checkoutDate" DATETIME NOT NULL,
     "numberOfGuests" INTEGER NOT NULL,
     "totalPrice" REAL NOT NULL,
-    "bookingNotes" TEXT
+    "bookingStatus" TEXT
 );
 
 -- CreateTable
@@ -53,7 +53,7 @@ CREATE TABLE "Review" (
     "userId" TEXT NOT NULL,
     "propertyId" TEXT NOT NULL,
     "rating" INTEGER NOT NULL,
-    "comment" TEXT NOT NULL
+    "comment" TEXT
 );
 
 -- CreateTable
