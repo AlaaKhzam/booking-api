@@ -3,6 +3,7 @@ import * as Sentry from "@sentry/node";
 import "dotenv/config";
 
 import usersRouter from "./routes/users.js";
+import bookingsRouter from "./routes/bookings.js";
 import loginRouter from "./routes/login.js";
 import log from "./middleware/logMiddleware.js";
 import errorHandler from "./middleware/errorHandler.js";
@@ -36,6 +37,7 @@ app.use(log);
 
 // Resource routes
 app.use("/users", usersRouter);
+app.use("/bookings", bookingsRouter);
 
 // Login
 app.use("/login", loginRouter);
