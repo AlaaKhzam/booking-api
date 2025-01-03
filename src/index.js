@@ -4,6 +4,10 @@ import "dotenv/config";
 
 import usersRouter from "./routes/users.js";
 import bookingsRouter from "./routes/bookings.js";
+import propertiesRouter from "./routes/properties.js";
+import amenitiesRouter from "./routes/amenities.js";
+import reviewsRouter from "./routes/reviews.js";
+import hostsRouter from "./routes/hosts.js";
 import loginRouter from "./routes/login.js";
 import log from "./middleware/logMiddleware.js";
 import errorHandler from "./middleware/errorHandler.js";
@@ -38,6 +42,10 @@ app.use(log);
 // Resource routes
 app.use("/users", usersRouter);
 app.use("/bookings", bookingsRouter);
+app.use("/properties", propertiesRouter);
+app.use("/amenities", amenitiesRouter);
+app.use("/reviews", reviewsRouter);
+app.use("/hosts", hostsRouter);
 
 // Login
 app.use("/login", loginRouter);
