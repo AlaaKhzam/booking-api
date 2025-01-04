@@ -2,6 +2,7 @@ import { Router } from "express";
 import getUsers from "../services/users/getUsers.js";
 import createUser from "../services/users/createUser.js";
 import getUserById from "../services/users/getUserById.js";
+import getUserByQuery from "../services/users/getUserByQuery.js";
 import updateUserById from "../services/users/updateUserById.js";
 import deleteUserById from "../services/users/deleteUserById.js";
 import auth from "../middleware/auth.js";
@@ -10,8 +11,24 @@ const router = Router();
 
 router.get("/", async (req, res, next) => {
   try {
+    const { username, email } = req.query;
+
+    if (username || email) {
+      // filtering by username or email
+      const user = await getUserByQuery({ username, email });
+
+      if (!user) {
+        return res.status(404).json({
+          message: "No user found matching the provided query parameters.",
+        });
+      }
+
+      return res.status(200).json(user);
+    }
+
+    // Fetch all users
     const users = await getUsers();
-    res.json(users);
+    res.status(200).json(users);
   } catch (error) {
     next(error);
   }
