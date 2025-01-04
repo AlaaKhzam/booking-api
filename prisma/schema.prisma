@@ -53,7 +53,7 @@ model Property {
   bookings      Booking[]
   reviews       Review[]
 
-  host          Host      @relation(fields: [hostId], references: [id])
+  host          Host      @relation(fields: [hostId], references: [id], onDelete: Cascade)
 }
 
 model Booking {
@@ -66,8 +66,8 @@ model Booking {
   totalPrice     Float
   bookingStatus  String?
 
-  user           User     @relation(fields: [userId], references: [id])
-  property       Property @relation(fields: [propertyId], references: [id])
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  property       Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
 }
 
 model Review {
@@ -77,8 +77,8 @@ model Review {
   rating        Int
   comment       String?
 
-  user          User     @relation(fields: [userId], references: [id])
-  property      Property @relation(fields: [propertyId], references: [id])
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  property      Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
 }
 
 model Amenity {
