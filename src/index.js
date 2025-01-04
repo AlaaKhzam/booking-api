@@ -50,8 +50,7 @@ app.use("/hosts", hostsRouter);
 // Login
 app.use("/login", loginRouter);
 
-// Trace errors
-// The error handler must be registered before any other error middleware and after all controllers
+// Sentry error handler
 app.use(Sentry.Handlers.errorHandler());
 
 // Error handling
