@@ -3,6 +3,7 @@ import auth from "../middleware/auth.js";
 import getBookings from "../services/bookings/getBookings.js";
 import createBooking from "../services/bookings/createBooking.js";
 import getBookingById from "../services/bookings/getBookingById.js";
+import getBookingByQuery from "../services/bookings/getBookingByQuery.js";
 import updateBookingById from "../services/bookings/updateBookingById.js";
 import deleteBookingById from "../services/bookings/deleteBookingById.js";
 
@@ -10,8 +11,24 @@ const router = Router();
 
 router.get("/", async (req, res, next) => {
   try {
+    const { userId } = req.query;
+
+    if (userId) {
+      // filtering by userId
+      const booking = await getBookingByQuery(userId);
+
+      if (!booking) {
+        return res
+          .status(404)
+          .json({ message: `No booking found with userId "${userId}".` });
+      }
+
+      return res.status(200).json(booking);
+    }
+
+    // Fetch all bookings
     const bookings = await getBookings();
-    res.json(bookings);
+    res.status(200).json(bookings);
   } catch (error) {
     next(error);
   }
