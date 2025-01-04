@@ -2,6 +2,7 @@ import { Router } from "express";
 import getProperties from "../services/properties/getProperties.js";
 import createProperty from "../services/properties/createProperty.js";
 import getPropertyById from "../services/properties/getPropertyById.js";
+import getPropertiesByQuery from "../services/properties/getPropertiesByQuery.js";
 import updatePropertyById from "../services/properties/updatePropertyById.js";
 import deletePropertyById from "../services/properties/deletePropertyById.js";
 import auth from "../middleware/auth.js";
@@ -10,7 +11,27 @@ const router = Router();
 
 router.get("/", async (req, res, next) => {
   try {
-    const properties = await getProperties();
+    const { location, pricePerNight, amenities } = req.query;
+
+    let properties;
+
+    // Check if any query parameters are provided
+    if (location || pricePerNight || amenities) {
+      properties = await getPropertiesByQuery({
+        location,
+        pricePerNight,
+        amenities,
+      });
+    } else {
+      // If no query parameters, fetch all properties
+      properties = await getProperties();
+    }
+
+    // If no properties are found, return an appropriate message
+    if (properties.length === 0) {
+      return res.status(404).json({ message: "No properties found." });
+    }
+
     res.json(properties);
   } catch (error) {
     next(error);
