@@ -17,7 +17,7 @@ router.get("/", async (req, res, next) => {
       // filtering by name
       const host = await getHostByQuery(name);
 
-      if (!host) {
+      if (host.length === 0) {
         return res
           .status(404)
           .json({ message: `No host found with name "${name}".` });

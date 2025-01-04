@@ -17,7 +17,7 @@ router.get("/", async (req, res, next) => {
       // filtering by userId
       const booking = await getBookingByQuery(userId);
 
-      if (!booking) {
+      if (booking.length === 0) {
         return res
           .status(404)
           .json({ message: `No booking found with userId "${userId}".` });

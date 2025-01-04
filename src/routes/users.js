@@ -17,9 +17,9 @@ router.get("/", async (req, res, next) => {
       // filtering by username or email
       const user = await getUserByQuery({ username, email });
 
-      if (!user) {
+      if (!user || user.length === 0) {
         return res.status(404).json({
-          message: "No user found matching the provided query parameters.",
+          message: `No user found matching with the username or email provided.`,
         });
       }
 

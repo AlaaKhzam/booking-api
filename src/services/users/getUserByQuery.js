@@ -10,7 +10,7 @@ const getUserByQuery = async ({ username, email }) => {
       where: { username },
     });
   } else if (email) {
-    user = await prisma.user.findUnique({
+    user = await prisma.user.findMany({
       where: { email },
     });
   }
