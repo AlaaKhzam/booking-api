@@ -28,6 +28,22 @@ router.post("/", auth, async (req, res, next) => {
       profilePicture,
       aboutMe,
     } = req.body;
+
+    // Validate the request body
+    if (
+      !username ||
+      !password ||
+      !name ||
+      !email ||
+      !phoneNumber ||
+      !profilePicture ||
+      !aboutMe
+    ) {
+      return res
+        .status(400)
+        .json({ message: "All required fields must be provided." });
+    }
+
     const newHost = await createHost(
       username,
       password,

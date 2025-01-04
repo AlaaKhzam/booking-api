@@ -64,7 +64,7 @@ model Booking {
   checkoutDate   DateTime
   numberOfGuests Int
   totalPrice     Float
-  bookingStatus  String?
+  bookingStatus  String
 
   user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   property       Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)

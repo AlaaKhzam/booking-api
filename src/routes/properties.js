@@ -30,6 +30,24 @@ router.post("/", auth, async (req, res, next) => {
       hostId,
       rating,
     } = req.body;
+
+    // Validate the request body
+    if (
+      !title ||
+      !description ||
+      !location ||
+      !pricePerNight ||
+      !bedroomCount ||
+      !bathRoomCount ||
+      !maxGuestCount ||
+      !hostId ||
+      !rating
+    ) {
+      return res
+        .status(400)
+        .json({ message: "All required fields must be provided." });
+    }
+
     const newProperty = await createProperty(
       title,
       description,

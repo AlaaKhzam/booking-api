@@ -20,6 +20,12 @@ router.get("/", async (req, res, next) => {
 router.post("/", auth, async (req, res, next) => {
   try {
     const { name } = req.body;
+
+    // Validate the request body
+    if (!name) {
+      return res.status(400).json({ message: "The name must be provided." });
+    }
+
     const newAmenity = await createAmenity(name);
     res.status(201).json(newAmenity);
   } catch (error) {

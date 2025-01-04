@@ -20,6 +20,14 @@ router.get("/", async (req, res, next) => {
 router.post("/", auth, async (req, res, next) => {
   try {
     const { userId, propertyId, rating, comment } = req.body;
+
+    // Validate the request body
+    if (!userId || !propertyId || !rating) {
+      return res
+        .status(400)
+        .json({ message: "All required fields must be provided." });
+    }
+
     const newReview = await createReview(userId, propertyId, rating, comment);
     res.status(201).json(newReview);
   } catch (error) {
