@@ -19,8 +19,8 @@ model User {
   username       String   @unique
   password       String
   name           String
-  email          String
-  phoneNumber    String
+  email          String   @unique
+  phoneNumber    String   @unique
   profilePicture String
   bookings       Booking[]
   reviews        Review[]
@@ -31,8 +31,8 @@ model Host {
   username       String   @unique
   password       String
   name           String
-  email          String
-  phoneNumber    String
+  email          String   @unique
+  phoneNumber    String   @unique
   profilePicture String
   aboutMe        String
   listings       Property[]

@@ -4,11 +4,7 @@ const prisma = new PrismaClient();
 
 const getBookingByQuery = async (userId) => {
   return await prisma.booking.findMany({
-    where: {
-      userId: {
-        equals: userId,
-      },
-    },
+    where: { userId },
   });
 };
 

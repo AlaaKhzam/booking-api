@@ -28,7 +28,7 @@ router.get("/", async (req, res, next) => {
 
     // Fetch all hosts
     const hosts = await getHosts();
-    res.status(200).json(hosts);
+    res.json(hosts);
   } catch (error) {
     next(error);
   }

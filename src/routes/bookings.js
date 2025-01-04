@@ -28,7 +28,7 @@ router.get("/", async (req, res, next) => {
 
     // Fetch all bookings
     const bookings = await getBookings();
-    res.status(200).json(bookings);
+    res.json(bookings);
   } catch (error) {
     next(error);
   }

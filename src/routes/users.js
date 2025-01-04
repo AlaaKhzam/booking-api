@@ -28,7 +28,7 @@ router.get("/", async (req, res, next) => {
 
     // Fetch all users
     const users = await getUsers();
-    res.status(200).json(users);
+    res.json(users);
   } catch (error) {
     next(error);
   }
