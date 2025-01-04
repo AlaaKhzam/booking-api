@@ -2,6 +2,7 @@ import { Router } from "express";
 import getHosts from "../services/hosts/getHosts.js";
 import createHost from "../services/hosts/createHost.js";
 import getHostById from "../services/hosts/getHostById.js";
+import getHostByQuery from "../services/hosts/getHostByQuery.js";
 import updateHostById from "../services/hosts/updateHostById.js";
 import deleteHostById from "../services/hosts/deleteHostById.js";
 import auth from "../middleware/auth.js";
@@ -10,8 +11,24 @@ const router = Router();
 
 router.get("/", async (req, res, next) => {
   try {
+    const { name } = req.query;
+
+    if (name) {
+      // filtering by name
+      const host = await getHostByQuery(name);
+
+      if (!host) {
+        return res
+          .status(404)
+          .json({ message: `No host found with name "${name}".` });
+      }
+
+      return res.status(200).json(host);
+    }
+
+    // Fetch all hosts
     const hosts = await getHosts();
-    res.json(hosts);
+    res.status(200).json(hosts);
   } catch (error) {
     next(error);
   }
