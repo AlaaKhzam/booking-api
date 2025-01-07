@@ -63,6 +63,9 @@ router.post("/", auth, async (req, res, next) => {
     );
     res.status(201).json(newUser);
   } catch (error) {
+    if (error.message === "A user with this username already exists.") {
+      return res.status(404).json({ message: error.message });
+    }
     next(error);
   }
 });

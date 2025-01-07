@@ -72,6 +72,9 @@ router.post("/", auth, async (req, res, next) => {
     );
     res.status(201).json(newHost);
   } catch (error) {
+    if (error.message === "A host with this username already exists.") {
+      return res.status(404).json({ message: error.message });
+    }
     next(error);
   }
 });
