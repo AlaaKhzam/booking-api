@@ -14,9 +14,9 @@ const getPropertiesByQuery = async (filters) => {
     };
   }
 
-  if (pricePerNight) {
+  if (pricePerNight && !isNaN(parseFloat(pricePerNight))) {
     queryConditions.pricePerNight = {
-      lte: parseFloat(pricePerNight),
+      equals: parseFloat(pricePerNight),
     };
   }
 
